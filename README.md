@@ -202,4 +202,14 @@ Creating an Arduino Sketch in Catkin Package to Test Motors
 	sudo apt install screen
 	
 	run screen initially when starting a new SSH session and use screen -r to resume to a prevous screen session
-	
+
+
+Created another Arduino Sketch to test Basic Movement of the Robot
+	cd ~/turtle_ws/src/motorControl
+	arduino-cli sketch new firstMoves
+	nano firstMoves/firstMoves.ino
+	arduino-cli compile --fqbn arduino:avr:mega firstMoves
+	arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:mega firstMoves
+
+See Arduino Code in the git repo
+The code is not ideal, but works - see Youtube Video: https://www.youtube.com/watch?v=o_DxhvRwbOo
