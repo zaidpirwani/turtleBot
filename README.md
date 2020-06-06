@@ -146,3 +146,60 @@ rosdep update
 install step might take time, 400+ MB to download and install
 
 ROS KINETIC INSTALLED
+
+Creating ROS WorkSpace
+http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
+	mkdir -p ~/turtle_ws/src
+	cd turtle_ws
+	catkin_make
+	
+added environment setup lines in .bashrc file
+cd ~
+nano .bashrc
+	source source ~/turtle_ws/devel/setup.bash
+	export ROS_HOSTNAME=192.168.18.36
+	export ROS_MASTER_URI=http://192.168.18.36:11311/
+
+installed screen, sudo apt install screen
+
+installing RosSerial - all packages
+	sudo apt install ros-kinetic-rosserial-*
+
+Installing Arduino-cli - https://arduino.github.io/arduino-cli/installation/
+	cd ~
+	curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+	arduino-cli config init
+	arduino-cli core update-index
+	arduino-cli core install arduino:avr
+	arduino-cli board list			(to see where is Arduino board connected and which one and if it is detected)
+
+	Arduino is connected via
+	Port         Type              Board Name                FQBN             Core
+	/dev/ttyACM0 Serial Port (USB) Arduino Mega or Mega 2560 arduino:avr:mega arduino:avr
+
+
+Create a new Catkin Package
+	cd ~
+	cd src
+	catkin_create_pkg motorControl rospy roscpp std_msgs
+	cd motorControl
+
+Creating an Arduino Sketch in Catkin Package to Test Motors
+	cd ~/turtle_ws/src/motorControl
+	arduino-cli sketch new motorTest
+	nano motorTest/motorTest.ino	
+	CODE - see file in GIT - motorTest.ino
+	arduino-cli compile --fqbn arduino:avr:mega motorTest
+	arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:mega motorTest
+	GOT ERROR ABOUT PERMISSION DENIED
+	sudo adduser $USER dialout
+	end SSH Session and start a new one, go to the package directory
+	arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:mega motorTest
+	
+	Tested each motor individually to confirm pins and directions
+
+	had some problems with connectivity again, installed screen
+	sudo apt install screen
+	
+	run screen initially when starting a new SSH session and use screen -r to resume to a prevous screen session
+	
