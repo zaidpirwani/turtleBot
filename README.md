@@ -68,3 +68,38 @@ sudo apt update
 sudo apt upgrade
 (might take a long time for first time, approx download size is 400MB+)
 
+done update / installation - asked for configuration file replace, selected N - no, kept old one
+
+sudo shutdown -h now
+shutdown, removed HDMI / mouse and battery
+back to running pi from 5V Wall Adapter
+
+now will connect to SSH over WiFi - need WiFi IP - checking router - found IP, but it seems pi not connected to WiFi
+now connected to Pi via LAN directly with Laptop
+
+Used a long process to connect to Pi, found IP of pi using NetScan - See LINK
+https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922
+
+Now, need to setup WiFi on Pi AGAIN and confirm
+
+Connecting to WiFi form Terminal has always been a mysterious/confusing task - and always it works in a different way
+tried this link: https://askubuntu.com/questions/461825/how-to-connect-to-wifi-from-the-command-line
+the below command finally worked, 
+nmcli d connect wlan0
+
+rebooting and checking
+rebooted, wifi did not automatically connect, connects with the above command ....
+
+Added the following to /etc/network/interfaces
+auto wlan0
+iface wlan0 inet dhcp
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+Added the following to /ect/wpa_supplicant/wpa_supplicant.conf
+country=PK
+
+network={
+    ssid="MyWifiNetwork"
+    psk="myP4ssw0rd"
+}
+rebooted - now cant even login via the LAN :( SSH connection refuses - still not connecting to WiFi automatically
