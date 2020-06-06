@@ -103,3 +103,29 @@ network={
     psk="myP4ssw0rd"
 }
 rebooted - now cant even login via the LAN :( SSH connection refuses - still not connecting to WiFi automatically
+
+removed the internet connection sharing in WiFi adapter in windows, setup a bridge between WiFi and ethernet
+got IP of pi from netscan
+
+now reverting previous tasks and trying again
+removed added lines from interfaces and wpa_supplicant files
+reboot
+
+connected again via SSH - WiFi/Ethernet Bridge, IP from NetScan
+ifconfig still shows WiFi not connected
+typing in the command connects to WiFi
+sudo nmcli d connect wlan0
+
+THINKING OF A HACK / JUGAAR
+sudo crontab -e
+use nano editor
+added line
+@reboot sleep 30; nmcli d connect wlan0
+save and exit
+this should run the command 30 seconds after reboot
+
+possibly the problem can be fixed with GUI network settings, but currently no monitor
+
+reboot and test - shutdown - disconnect ethernet - remove bridge in windows
+
+turn on Pi, see netscan for IP - WORKS.... :)
