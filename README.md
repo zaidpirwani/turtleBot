@@ -213,3 +213,17 @@ Created another Arduino Sketch to test Basic Movement of the Robot
 
 See Arduino Code in the git repo
 The code is not ideal, but works - see Youtube Video: https://www.youtube.com/watch?v=o_DxhvRwbOo
+
+Install Teleop_Twist_Keyboard for Keyboard Control
+	sudo apt install ros-kinetic-teleop-twist-keyboard
+
+Test TeleopTwistKeyboard, in different SSH Terminals, type the following
+SSH 1 - roscore
+SSH 2 - rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+	press the keys to send teleop Twist Commands on the cmd_vel topic
+SSH 3 - for viewing the data
+rostopic list			gives the list of current topics
+rostopic info /cmd_vel	gives info about the topic cmd_vel
+rostopic echo /cmd_vel	echos the data on cmd_vel topic
+
+TODO: Write Arduino Code which uses rosserial to subscribe to the cmd_vel topic and sends commands to motors
