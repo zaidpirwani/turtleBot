@@ -18,4 +18,6 @@ STATUS
 * Electronics PINOUT checked and tested - DONE
 * Basic Motor Movement Code written - DONE
 * Basic TeleOperation Test - DONE
-* Initialize and get Kinect Image Feed - TODO
+* Initialize and get Kinect Image Feed - DONE
+* TeleOp + Kinect Camera + Kinect Depth to LaserScan - DONE
+* Create Robot Launch File - TODO
