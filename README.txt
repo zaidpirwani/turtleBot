@@ -250,3 +250,71 @@ to run the teleop, need 3 different terminals
 SSH 1: roscore
 SSH 2: rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 SSH 3: rosrun rosserial_python serial_node.py /dev/ttyACM0
+
+Install freenect to get Kinect working, to get camera, audio input, depth image
+Also installing openni, just in case
+
+sudo apt install ros-kinetic-freenect-*
+sudo apt install ros-kinetic-openni-*
+
+
+roslaunch freenect_launch freenect.launch
+it works
+to see the data being published, launch rviz or rqt_gui
+as I am using pi with no screen and not using any kind of remote desktop application
+I used a laptop which has ubuntu, set the ROS IP variables in bashrc
+
+pi ip     =192.168.18.36
+laptop ip =192.168.18.5
+
+.bashrc file on Pi has the following lines
+export ROS_HOSTNAME=192.168.18.36
+export ROS_MASTER_URI=http://192.168.18.36:11311/
+
+.bashrc file on LAPTOP has the following lines
+export ROS_HOSTNAME=192.168.18.5
+export ROS_MASTER_URI=http://192.168.18.36:11311/
+
+laptop also has ROS kinetic instaled in same fashion, with Ubuntu 16.04
+
+SSH 1 to Pi:
+roslaunch freenect_launch freenect.launch
+
+on laptop
+Terminal 1: rosrun rviz rviz
+Terminal 2: rosrun rqt_gui rqt_gui
+
+whichever you like, observe the different images, depth image, point cloud, etc topics being published by the Kinect
+
+now on to next task
+TELEOP - with Kinect Camera
+BONUS: convert depth_image from Kinect to LASER SCAN and view in RVIZ4
+
+install on Pi
+sudo apt install ros-kinetic-depthimage-to-laserscan
+
+SSH 1 to Pi: run kinect driver
+roslaunch freenect_launch freenect.launch
+
+SSH 2 to Pi: tun the arduino rosserial bridge node
+rosrun rosserial_python serial_node.py /dev/ttyACM0
+
+
+
+on UBUNTU Laptop
+Terminal 1: to view kinect camera
+rosrun rqt_gui rqt_gui
+set to camera/rgb/image_raw/compressed
+
+Terminal 2: convert depth image to laserscan
+rosrun depthimage_to_laserscan depthimage_to_laserscan image:=/cera/depth/image_raw
+
+Terminal 3:
+rosrun rviz rviz
+add a LASERSCAN topic, remove extra topics
+
+Terminal 4:
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+
+
+IT WORKS... - see snapshot - teleop-camera-laserScan.jpg
