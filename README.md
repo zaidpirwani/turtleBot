@@ -12,3 +12,10 @@ So I will just put up a simple README.txt file besides this one until I figure o
 This is raw logging of my work, not intended to explain, but if you are following this and wanna talk, hit me up.
 
 ALL LOG has been moved to README.txt
+
+STATUS
+* Ubuntu, ROS, Internet, SSH Connectivity - DONE
+* Electronics PINOUT checked and tested - DONE
+* Basic Motor Movement Code written - DONE
+* Basic TeleOperation Test - DONE
+* Initialize and get Kinect Image Feed - TODO
