@@ -307,7 +307,7 @@ rosrun rqt_gui rqt_gui
 set to camera/rgb/image_raw/compressed
 
 Terminal 2: convert depth image to laserscan
-rosrun depthimage_to_laserscan depthimage_to_laserscan image:=/cera/depth/image_raw
+rosrun depthimage_to_laserscan depthimage_to_laserscan image:=/camera/depth/image_raw
 
 Terminal 3:
 rosrun rviz rviz
@@ -321,3 +321,32 @@ IT WORKS... - see snapshot - teleop-camera-laserScan.jpg
 RESUMING WORK
 TODOs for Today: Launch File, Map Making
 Found IP from Router: 192.168.18.36
+
+Created Launch file, inside a folder launch inside the package motorControl
+cd turtle_ws
+cd src
+cd motorControl
+mkdir launch
+nano launch turtle.launch
+
+ADD THE FOLLOWING
+<launch>
+  <include file="$(find freenect_launch)/launch/freenect.launch" required="true"/>
+  <node name="arduino" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" respawn="true" respawn_delay="10"/>
+  <node name="kinectToLaser" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" />
+  <remap from="image" to="/camera/depth/image_raw" />
+</launch>
+
+SAVE, EXIT
+
+Compile workspace again
+cd ~
+cd turtle_ws
+catkin_make
+
+to Launch
+roslaunch motorControl turtle.launch
+
+Now only needed is the TELEOP node to send movement commands to the robot, all bringup of the robot is in one launch file
+
+TODO: Need to manage robot motor speed, maybe read values from the cmd_vel, currently not reading speed, only direction
