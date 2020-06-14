@@ -316,5 +316,8 @@ add a LASERSCAN topic, remove extra topics
 Terminal 4:
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
-
 IT WORKS... - see snapshot - teleop-camera-laserScan.jpg
+
+RESUMING WORK
+TODOs for Today: Launch File, Map Making
+Found IP from Router: 192.168.18.36
